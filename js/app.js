@@ -3,7 +3,7 @@
   const KF = window.KF;
   const U = KF.util;
 
-  const ORDER = ["drift", "orrery", "pendulum", "gravity", "pond", "garden", "cairn", "feed", "almanac"];
+  const ORDER = ["flow", "ink", "bloom", "swarm", "cymatics", "attractor"];
 
   const canvas = document.getElementById("scene-canvas");
   const sceneDom = document.getElementById("scene-dom");
@@ -148,9 +148,8 @@
     dock.classList.add("show");
     chip.classList.add("show");
     if (focusChip) focusChip.classList.add("show");
-    KF.cards.begin();
     last = performance.now();
-    go("drift");
+    go("flow");
   }
   enterBtn.addEventListener("click", (e) => { e.stopPropagation(); begin(); });
   // also allow Enter/Space/any tap on the veil
@@ -185,7 +184,6 @@
     dock.classList.add("show");
     chip.classList.add("show");
     if (focusChip) focusChip.classList.add("show");
-    KF.cards.begin();
     last = performance.now();
     _go(hashKey);
   }

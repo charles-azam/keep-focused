@@ -300,7 +300,7 @@
       show();
     } else { // wander
       hide();
-      const rooms = ["drift", "pond", "garden", "orrery", "pendulum"];
+      const rooms = ["flow", "bloom", "cymatics", "swarm"];
       if (KF.go) KF.go(U.pick(rooms));
     }
     tick();

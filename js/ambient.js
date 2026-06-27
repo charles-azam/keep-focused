@@ -109,40 +109,39 @@
     requestAnimationFrame(tick);
   }
 
-  // public: drop a ripple anywhere
+  // public: drop a slow, quiet ripple anywhere
   KF.ripple = function (x, y, opts) {
     opts = opts || {};
     ripples.push({
       x, y, life: 0,
-      dur: opts.dur || U.rand(1.4, 2.0),
-      max: opts.max || U.rand(60, 120),
+      dur: opts.dur || U.rand(2.4, 3.4),
+      max: opts.max || U.rand(50, 90),
       col: opts.col || "158,199,218",
       second: opts.second !== false,
     });
-    const n = opts.sparks == null ? 5 : opts.sparks;
+    const n = opts.sparks == null ? 0 : opts.sparks;
     for (let i = 0; i < n; i++) {
       const ang = Math.random() * U.TAU;
-      const sp = U.rand(0.4, 2.0);
+      const sp = U.rand(0.3, 1.2);
       sparks.push({
-        x, y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 0.6,
-        r: U.rand(0.6, 1.8), life: U.rand(0.6, 1.1),
-        col: opts.sparkCol || "rgba(243,210,160,0.9)",
+        x, y, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 0.4,
+        r: U.rand(0.6, 1.4), life: U.rand(0.6, 1.0),
+        col: opts.sparkCol || "rgba(243,210,160,0.8)",
       });
     }
   };
 
-  // global interaction feedback — every click, everywhere, makes something
+  // global interaction feedback — every touch makes one soft, slow ring + a note
   function onDown(e) {
     if (!KF.started) return;
     const x = e.clientX, y = e.clientY;
-    // chrome clicks get a quieter, warmer response
     const onChrome = e.target.closest("#dock,.chip,#brand,.card,#focus-overlay,#focus-hud");
     KF.ripple(x, y, {
       col: onChrome ? "230,181,114" : "158,199,218",
-      max: onChrome ? 40 : U.rand(70, 130),
-      sparks: onChrome ? 3 : 6,
+      max: onChrome ? 34 : U.rand(46, 80),
+      sparks: 0,
     });
-    if (KF.audio) KF.audio.tap(y, onChrome ? 0.35 : 0.5);
+    if (KF.audio) KF.audio.tap(y, onChrome ? 0.32 : 0.42);
   }
 
   window.addEventListener("pointerdown", onDown, { passive: true });

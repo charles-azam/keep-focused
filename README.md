@@ -2,13 +2,17 @@
 
 *the still point of the turning world*
 
-A quiet place to go whenever you need to refocus. No accounts, no notifications, no
-goals, no score. Just a handful of calm rooms you drift between — physics toys that
-turn for their own sake, an empty feed that asks nothing of you, two-hundred-year-old
-news, and high-level science facts that surface gently and dissolve.
+A wordless, slow place to go whenever you need to refocus. No accounts, no
+notifications, no goals, no score — and nothing to *read*, because when your
+attention is frayed the last thing you want is more words.
 
-It is built for a technical brain at the end of its rope: nothing here is dumbed down,
-and nothing here is urgent.
+Instead it's a small planetarium of real mathematics: a handful of deep
+generative and physical simulations, each mesmerizing enough to quiet a busy
+mind, each gently *influenced* by your touch rather than "played." You drift
+between them slowly and watch.
+
+Built for a technical brain at the end of its rope: nothing here is dumbed down,
+nothing here is urgent, and nothing here asks anything of you.
 
 ---
 
@@ -27,39 +31,34 @@ python3 -m http.server 8765
 # then open http://localhost:8765
 ```
 
-Press **begin**, find a breath, and wander.
+Press **begin**, and drift.
 
 ---
 
 ## The rooms
 
-| Room | What it is |
-|------|------------|
-| **Drift** | A breath to follow. Fireflies shy away from your cursor; touch anywhere to release an ember. |
-| **Orrery** | A solar system that turns for no reason. Inner planets hurry, outer ones brood. Touch to set a new comet turning at that radius (Kepler's law: ω ∝ r^−3⁄2). |
-| **Pendulum** | A pendulum wave — each bob a hair slower than its neighbour, so the line dissolves into travelling waves and re-assembles. Touch to release them together. |
-| **Gravity** | A softened, damped n-body sandbox. A cloud of motes; touch to place a mass and watch them ribbon into orbits. |
-| **Pond** | A real height-field wave simulation. Drop stones and watch the rings *interfere*. Rain falls on its own. |
-| **Garden** | A moonlit zen garden. Drag to rake grooves; tap to set down a smooth stone. |
-| **Cairn** | Stack pebbles into little balancing towers. They never topple, and each landing rings a note that climbs with the tower. |
-| **Feed** | The shape of a doomscroll, emptied of dread. Scroll forever; nothing happens, nothing is owed. |
-| **1826** | The news, two hundred years stale — the only safe kind. Real dispatches from the year, set as a broadsheet. |
+Six simulations, all wordless and slow. Each is the *real* thing, not a cartoon of it.
 
-Science facts (Noether's theorem, the Carnot bound, ATP synthase, the Chandrasekhar
-limit, …) and the occasional nature note drift in over any room, then fade. Touch one
-to let it go.
+| Room | What it actually is | Touch does |
+|------|---------------------|------------|
+| **Flow** | A curl-noise flow field — thousands of luminous motes carried along an invisible, slowly-turning vector field | Stirs a slow eddy into the current |
+| **Ink** | Jos Stam's *stable fluids* — a real, unconditionally-stable Navier–Stokes solver | Pushes the fluid; dye curls through the velocity field |
+| **Bloom** | The Gray–Scott reaction–diffusion system — two chemicals whose arithmetic grows coral, labyrinths, mitosis (Turing patterns) | Seeds the pattern; it grows on its own |
+| **Swarm** | The Physarum slime-mould model — each agent only smells the trail ahead and turns toward it, yet thousands weave living networks | Lays down food; the swarm reaches for it |
+| **Cymatics** | Chladni figures — sand on a vibrating plate settling onto the nodal lines of the plate's eigenmodes | Changes the note; the pattern re-forms |
+| **Attractor** | The Aizawa strange attractor — three coupled ODEs whose solution never repeats yet never escapes, traced into a luminous ribbon | Turns it in your hands |
 
-Every click, anywhere, makes a soft pentatonic note — so nothing you do can sound wrong.
+Every touch, anywhere, makes a soft pentatonic note — so nothing you do can sound wrong.
 
 ---
 
 ## Focus mode — work without checking email
 
 Click the **◎** in the top-right to start a *working session*. This turns Stillpoint
-from an ambient place to wander into a tool that holds your attention away from inboxes —
+from an ambient place to drift into a tool that holds your attention away from inboxes —
 and gives you the *right kind* of break when you stop. It's built on the focus-reset
-research (see `RESEARCH.md` if you generate it): the real enemy of focus is opening new
-loops mid-session, and the best breaks are the ones that close loops rather than open them.
+research: the real enemy of focus is opening new loops mid-session, and the best breaks
+are the ones that close loops rather than open them.
 
 The loop: **Arrive → Work → (the Valve) → Break → Return.**
 
@@ -87,11 +86,11 @@ It's all stored locally (no accounts, no network). Nothing you park leaves your 
 ## Keys
 
 - **← → ↑ ↓** — move between rooms
-- **1–9** — jump straight to a room
+- **1–6** — jump straight to a room
 - **m** — mute / unmute
 - **f** — fullscreen
 
-Each room is bookmarkable: `…/index.html#pond` opens straight into the pond.
+Each room is bookmarkable: `…/index.html#bloom` opens straight into Bloom.
 
 ---
 
@@ -99,7 +98,7 @@ Each room is bookmarkable: `…/index.html#pond` opens straight into the pond.
 
 A few ways to have it one click away whenever your attention frays:
 
-- **Bookmark** `index.html` (or a specific room, e.g. `#drift`) on your toolbar.
+- **Bookmark** `index.html` (or a specific room, e.g. `#flow`) on your toolbar.
 - **Host it** for free on GitHub Pages, Netlify, or Vercel — drop the folder in and
   you get a URL you can open anywhere, on any device.
 - **Make it your new-tab page** with a "custom new tab URL" browser extension, pointed
@@ -110,20 +109,22 @@ A few ways to have it one click away whenever your attention frays:
 ## Under the hood
 
 Plain HTML, CSS, and vanilla JavaScript — no framework, no dependencies, no tracking.
-Loaded as classic scripts so it works straight from `file://`.
+Loaded as classic scripts so it works straight from `file://`. The grid-based
+simulations (Ink, Bloom, Swarm, Cymatics) run on typed arrays at a downsampled
+resolution and scale up, so they stay smooth.
 
 ```
 index.html
 css/styles.css
 js/
   core.js        small utilities + namespace
+  store.js       local store for the focus loop (parked thoughts)
   audio.js       gentle pentatonic synth (Web Audio)
-  content.js     the facts, the 1826 dispatches, the feed's murmurs
-  ambient.js     starfield + global click ripples
-  cards.js       the drifting fact / dispatch cards
+  ambient.js     starfield + soft click ripples
   app.js         rooms, dock, render loop, the opening veil
-  scenes/        drift · orrery · pendulum · gravity · pond · garden · cairn · feed · almanac
+  focus.js       the Focus Loop (sessions, the Valve, break router)
+  scenes/        flow · ink · bloom · swarm · cymatics · attractor
 ```
 
-Add a fact by appending to `KF.content.facts` in `js/content.js`. Add a room by
-registering `KF.scenes.yourRoom = { … }` and adding its key to `ORDER` in `js/app.js`.
+Add a room by registering `KF.scenes.yourRoom = { name, hint, type:'canvas',
+enter, frame, resize, pointerdown, … }` and adding its key to `ORDER` in `js/app.js`.
