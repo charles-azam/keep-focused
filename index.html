@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Stillpoint — the still point of the turning world</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0e1b'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23e6b572'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239ec7da' stroke-width='1' opacity='0.5'/%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0e1b'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23e6b572'/%3E%3C/svg%3E" />
+<meta name="description" content="A quiet place to refocus. Drift, breathe, watch planets turn." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..420&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- atmosphere layers -->
+  <div id="nebula" aria-hidden="true"></div>
+  <canvas id="ambient" aria-hidden="true"></canvas>
+
+  <!-- the active room -->
+  <main id="stage">
+    <canvas id="scene-canvas"></canvas>
+    <div id="scene-dom"></div>
+  </main>
+
+  <!-- drifting fact / almanac cards -->
+  <div id="cards" aria-live="polite"></div>
+
+  <!-- click ripples + sparks -->
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div id="grain" aria-hidden="true"></div>
+
+  <!-- chrome -->
+  <header id="brand">
+    <h1>Stillpoint</h1>
+    <p class="sub">the still point of the turning world</p>
+    <p id="room-name" class="room-name"></p>
+  </header>
+
+  <div id="hint" class="hint"></div>
+
+  <nav id="dock" aria-label="rooms"></nav>
+
+  <button id="sound-toggle" class="chip" title="sound" aria-label="toggle sound">
+    <span class="ico">♪</span>
+  </button>
+
+  <button id="focus-toggle" class="chip" title="focus session" aria-label="start a focus session">
+    <span class="ico">◎</span>
+  </button>
+
+  <!-- opening veil -->
+  <div id="veil">
+    <div class="veil-inner">
+      <div class="veil-mark">Stillpoint</div>
+      <button id="enter" class="enter">begin</button>
+      <p class="veil-note">find a breath. nothing here needs you.</p>
+    </div>
+  </div>
+
+  <!-- scripts: classic (work from file://), dependency-ordered -->
+  <script src="js/core.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/ambient.js"></script>
+  <script src="js/cards.js"></script>
+  <script src="js/scenes/drift.js"></script>
+  <script src="js/scenes/orrery.js"></script>
+  <script src="js/scenes/pendulum.js"></script>
+  <script src="js/scenes/gravity.js"></script>
+  <script src="js/scenes/pond.js"></script>
+  <script src="js/scenes/garden.js"></script>
+  <script src="js/scenes/cairn.js"></script>
+  <script src="js/scenes/feed.js"></script>
+  <script src="js/scenes/almanac.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/focus.js"></script>
+</body>
+</html>
